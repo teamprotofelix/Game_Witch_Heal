@@ -1,0 +1,4 @@
+Witch's Journey: Little Happiness Trail
+Version: 2.0.0
+Build: 2026-10-31
+Static HTML/JS, offline-ready PWA, gentle platformer

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#59446c"><meta name="description" content="마녀와 함께 꽃길을 걷고, 장애물을 점프하고, 작은 마법으로 친구를 돕는 힐링 플랫폼 산책 게임"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/icons/icon-192.png"><link rel="apple-touch-icon" href="./assets/icons/icon-192.png"><link rel="stylesheet" href="./style.css"><title>마녀의 여행 : 작은 행복의 길</title></head>
+<body><main id="app">
+<canvas id="game" aria-label="마녀의 여행 게임 화면" tabindex="0"></canvas>
+<section id="menu" class="menu"><div class="menu-art"></div><div class="menu-card"><span class="eyebrow">A COZY WITCH ADVENTURE</span><h1>마녀의 여행</h1><p class="en">Witch's Journey</p><p class="tagline">천천히 걷고, 가볍게 뛰고,<br>작은 마법으로 행복을 피워요.</p><div class="menu-buttons"><button id="startBtn" class="primary">✿ 새로운 산책</button><button id="resumeBtn" class="secondary hidden">↻ 이어서 걷기</button><button id="guideBtn" class="secondary">? 게임 방법</button></div><p class="tiny">4개의 풍경 · 24개 독립 포즈 · 터치 / 키보드 · 오프라인 PWA</p></div></section>
+<section id="hud" class="hud hidden">
+<div class="hud-top"><div class="stage-panel"><b id="stageName">햇살의 숲길</b><small id="stageSub">햇살이 나뭇잎 사이로 내려앉아요</small><div class="progress-track"><div id="progressBar"></div></div></div><div class="stats"><div><span>✿</span><b id="petalCount">0 / 4</b></div><div><span>♡</span><b id="friendCount">0 / 2</b></div><div><span>✦</span><b id="ritualCount">0 / 1</b></div><div><span>↥</span><b id="jumpCount">0 / 2</b></div></div><button id="journalBtn" class="smallbtn">📖 기록</button><button id="pauseBtn" class="smallbtn">Ⅱ</button></div>
+<div id="toast" class="toast hidden"></div><div class="hud-bottom"><div class="tips" id="tip">화면을 누르면 걷고, 장애물 앞에서는 점프하세요.</div><div class="touch-controls"><button id="leftBtn" class="control arrow" aria-label="왼쪽 이동">◀</button><button id="rightBtn" class="control arrow" aria-label="오른쪽 이동">▶</button><button id="jumpBtn" class="control jump" aria-label="점프">↥<small>점프</small></button><button id="magicBtn" class="control magic" aria-label="마법 사용">✦<small>마법</small></button></div></div>
+<div id="cozyPrompt" class="cozy-prompt hidden"></div>
+</section>
+<section id="modal" class="modal hidden"><div class="dialog"><div class="dialog-head"><h2 id="modalTitle">산책 안내</h2><button id="closeModal" class="smallbtn">✕</button></div><div id="modalContent" class="dialog-content"></div></div></section>
+</main><script defer src="./game.js"></script></body></html>
