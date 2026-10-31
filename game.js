@@ -72,13 +72,23 @@ function drawCharacter(t){const p=game.p,x=p.x-game.cam,g=ground();ctx.save();ct
 function draw(t){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,vw,vh);if(!game||mode==='menu'){ctx.fillStyle='#413b56';ctx.fillRect(0,0,vw,vh);return}const s=stage(),im=images[`bg/${s.def.bg}.webp`],g=ground();
  if(im?.naturalWidth){const scale=Math.max(vw/im.width,vh/im.height),width=im.width*scale,height=im.height*scale,spread=Math.max(0,width-vw),pan=game.cam/Math.max(1,stageLength-vw);ctx.drawImage(im,-spread*pan,0,width,height)}else{const gr=ctx.createLinearGradient(0,0,0,vh);gr.addColorStop(0,'#ffe5bf');gr.addColorStop(1,'#779a9e');ctx.fillStyle=gr;ctx.fillRect(0,0,vw,vh)}
  // Gentle translucent walkable path instead of the old opaque beige strip.
- const fade=ctx.createLinearGradient(0,g-22,0,vh);fade.addColorStop(0,'#c5b99b00');fade.addColorStop(.14,s.def.palette[0]+'aa');fade.addColorStop(1,s.def.palette[1]+'eb');ctx.fillStyle=fade;ctx.fillRect(0,g-22,vw,vh-g+22);
- ctx.fillStyle='#fff8e549';ctx.fillRect(0,g,vw,3);
+ const fade=ctx.createLinearGradient(0,g-22,0,vh);
+ fade.addColorStop(0,'#c5b99b00');fade.addColorStop(.55,s.def.palette[0]+'1b');fade.addColorStop(1,s.def.palette[1]+'59');
+ ctx.fillStyle=fade;ctx.fillRect(0,g-22,vw,vh-g+22);
+ ctx.fillStyle='#fff8e526';ctx.fillRect(0,g,vw,2);
  // Pebbles and tiny clover flowers are deterministic, screen follows camera smoothly.
  for(let i=0;i<80;i++){const x=((i*173.17+91)%stageLength)-game.cam;if(x<0||x>vw)continue;const y=g+14+(i*17)%Math.max(50,vh-g-20),r=1.6+i%3;ctx.fillStyle=i%4===0?'#ffefd9aa':'#ffffff55';ctx.beginPath();ctx.ellipse(x,y,r*2,r*.6,0,0,Math.PI*2);ctx.fill()}
  for(const o of s.hazards)drawObstacle(o,t);
  for(const e of s.items){const x=e.x-game.cam;if(x<-60||x>vw+60)continue;const y=g-50+Math.sin(e.bob)*5;if(e.got)continue;ctx.save();ctx.shadowColor='#ffe8a0';ctx.shadowBlur=12;circle(x,y,33,'#ffefb62e');sprite(path('items',e.name),x-31,y-31,62,62);ctx.restore()}
- for(const e of s.friends){const x=e.x-game.cam;if(x<-120||x>vw+120)continue;const y=g-70+Math.sin(e.bob*1.6)*4;if(e.met){ctx.globalAlpha=.73}ctx.save();ctx.shadowColor='#fff0d1';ctx.shadowBlur=e.met?0:12;sprite(path('creatures',e.name),x-48,y-50,96,96);ctx.restore();ctx.globalAlpha=1;if(!e.met)circle(x+33,y-39,3,'#ffeab8')}
+ for(const e of s.friends){
+  // Once greeted, the animal becomes a companion. Never render a ghost copy at the original spawn.
+  if(e.met)continue;
+  const x=e.x-game.cam;if(x<-120||x>vw+120)continue;
+  const y=g-70+Math.sin(e.bob*1.6)*4;
+  ctx.save();ctx.shadowColor='#fff0d1';ctx.shadowBlur=12;
+  sprite(path('creatures',e.name),x-48,y-50,96,96);
+  ctx.restore();circle(x+33,y-39,3,'#ffeab8');
+ }
  const ritual=s.ritual;{const x=ritual.x-game.cam;if(x>-110&&x<vw+110){ctx.save();ctx.translate(x,g);ctx.fillStyle='#766678';ctx.fillRect(-8,-64,16,67);ctx.fillStyle=ritual.activated?'#bfffe0':'#efc4ef';ctx.beginPath();ctx.ellipse(0,-73,33,22,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff2bc';ctx.font='22px Georgia';ctx.textAlign='center';ctx.fillText(ritual.activated?'✿':'✦',0,-66);ctx.restore()}}
  // Friends who have greeted the witch accompany her for a while; no chaotic chasing AI.
  const companions=s.friends.filter(e=>e.met).slice(0,2);

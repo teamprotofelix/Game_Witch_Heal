@@ -1,4 +1,5 @@
-Witch's Journey: Little Happiness Trail
-Version: 2.0.0
-Build: 2026-10-31
-Static HTML/JS, offline-ready PWA, gentle platformer
+Witch's Journey / 마녀의 여행
+Version: 2.2.0
+Date: 2026-10-31
+Static HTML5 PWA healing platformer
+Changes: clean creature extraction, no duplicate greeted animals, crisp native-res WebP backgrounds, root-ready ZIP.
